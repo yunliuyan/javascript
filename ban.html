@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    function Keydown(){
+        if(event.keyCode==8){
+            event.keyCode=0;
+            event.returnValue=false;//该属性是设置或获取事件的返回值。Event对象的returnValue属性的值一般是true,即脚本处理完自己的工作后由元素处理事件。
+                                         //通过该属性可以取消事件处理程序中调用函数的默认操作。
+            alert("当前设置不允许使用退格键");
+        }
+        if(event.keyCode==13){
+            event.keyCode=0;
+            event.returnValue=false;
+            alert("当前设置不允许使用回车键");
+        }
+        if(event.keyCode==116){
+            event.keyCode=0;
+            event.returnValue=false;
+            alert("当前设置不允许使用F5刷新键");
+        }
+        if((event.altKey)&&((window.event.keyCode==37)||(window.event.keyCode==39))){
+                event.returnValue=false;
+            alert("当前设置不允许使用ALT+方向键");
+        }
+    }
+    document.onkeydown = Keydown;
+</script>
+</body>
+</html>
