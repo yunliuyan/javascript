@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>5/24</title>
+</head>
+<body>
+       <script type="text/javascript">
+          var txt = "初学JavaScript列表";
+          document.write(txt.anchor("yun")+"</br>");
+          document.write(Math.abs(7-13)+"</br>");
+          document.write(Math.acos(-1)+"</br>");
+           document.write(Math.asin(0.6)+"</br>");
+           document.write(Math.atan(1)+"</br>");
+          /*5/30*/
+           var arr = new Array(4);
+           arr[0] = "你";
+           arr[1] = "好";
+           arr[2] = ",";
+           arr[3] = "世";
+           arr[4] = "界";
+          for(i=0; i<arr.length;i++){
+              document.write(arr[i]);
+          }
+          document.write("</br>");
+          var j;
+           for(j in arr){
+               document.write(arr[j]);
+           }
+          document.write("</br>");
+           var arr1 = new Array(2);
+           var arr2 = new Array(2);
+           arr1[0] = "你";
+           arr1[1] = "好";
+           arr2[0] = "世";
+           arr2[1] = "界";
+           document.write(arr1.concat(arr2).join("")+"</br>");
+           /*5/31*/
+           var arr3 = Array();
+           arr3[0] = "b";
+           arr3[1] = "a";
+           arr3[2] = "c";
+           arr3[3] = "5";
+           arr3[4] = "2";
+           document.write(arr3.sort() + "</br>");
+           document.write(Math.atan2(-1,1) + "</br>");
+           document.write(arr1.concat(arr2).join("").big() + "</br>");
+           var txt = "云流烟520";
+           document.write(txt.blink() + "</br>");/*目前只有 Firefox 和 Opera 浏览器支持 blink() 方法. Internet Explorer, Chrome, 以及 Safari 不支持 blink() 方法。*/
+           document.write(txt.bold() + "</br>");
+           var myBoolean = new Boolean(1);
+           document.write(myBoolean + "</br>");
+           document.write(Math.ceil(1.222) + "</br>")/*向上取整*/
+           document.write(txt.charAt(1).bold() + "</br>");
+           document.write(txt.charCodeAt(4) + "</br>");
+       </script>
+     <div style="margin-top:300px"><a href="#yun">返回顶部</a></div>
+</body>
+</html>
