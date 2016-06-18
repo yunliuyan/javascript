@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>无缝图片轮播</title>
+    <meta name="keywords" content="homyit about photo" />
+    <meta name="description" content="云流烟第一次讲课关于无缝图片轮播" />
+    <link rel="stylesheet" href="../css/base.css" />
+</head>
+<body>
+<div id="content">
+     <div id="div">
+       <ul id="ul">
+           <li><img src="../img/1.jpg" height="150px" width="200px" alt="我的女孩们" /> </li>
+           <li><img src="../img/2.jpg" height="150px" width="200px" alt="我的女孩们" /> </li>
+           <li><img src="../img/1.jpg" height="150px" width="200px" alt="我的女孩们" /> </li>
+           <li><img src="../img/4.jpg" height="150px" width="200px" alt="我的女孩们" /> </li>
+       </ul>
+    </div>
+     <div>
+     <a href="#" id="logo-left" class="logo-left"><i class="iconfont" style="color: #666;">&#xe60a;</i></a>
+     <a href="#" id="logo-right" class="logo-right"><i class="iconfont" style="color: #666">&#xe60b;</i></a>
+     </div>
+</div>
+ <script type="text/javascript">
+     window.onload = function () {
+         var content = document.getElementById("content")
+         var div = document.getElementById("div");
+         var ul = document.getElementById("ul");
+         var li = document.getElementsByTagName("li");
+         ul.innerHTML += ul.innerHTML;
+         ul.style.width = li[0].offsetWidth*li.length+"px";
+       //  console.log(li[0]);
+         var speed = 2;
+         var left = document.getElementById("logo-left");
+         var right = document.getElementById("logo-right");
+         left.onclick = function () {
+             speed = 2;
+         }
+         right.onclick = function(){
+             speed = -2;
+         }
+         function move(){
+             if(ul.offsetLeft<-ul.offsetWidth/2){ //向左若图四过去后则重置到后面
+                 ul.style.left = "0px";
+             }
+             if(ul.offsetLeft>0){   //向右若图一移动过去后则重置到前面
+                 ul.style.left = -ul.offsetWidth/2+"px";
+             }
+             ul.style.left = ul.offsetLeft - speed + "px";
+         }
+         var timer = setInterval(move,30);
+         div.onmouseover = function(){
+             clearInterval(timer);
+             li.style.height = "200px";
+         }
+         div.onmouseout = function () {
+             timer = setInterval(move,30);
+         }
+         content.onmousemove = function(){
+             right.style.display = "block";
+             right.style.top = "-300px"
+             left.style.display = "block";
+         }
+         content.onmouseout = function(){
+             left.style.display = "none";
+             right.style.display = "none";
+         }
+     }
+ </script>
+</body>
+</html>
