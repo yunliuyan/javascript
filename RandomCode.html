@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>随机产生指定验证码</title>
+	<style type="text/css">
+	     .contain {
+	     	height: 200px;
+	     	width:  400px;
+	     	margin:  200px auto 0;
+	     	border: 1px solid #666;
+	     	border-radius:  10%;
+	     }
+	     .contain .div-top {
+	     	height:  20%;
+	     	width: 100%;
+	     	border-bottom:  1px solid #ccc;
+	     }
+	     .contain .div-top #result {
+	     	font-size:  20px;
+                          padding: 6px 0 0 70px;
+	     }
+	     .contain .div-button {
+	     	height: 70%;
+	     	width:  98%;
+	     	margin: 6px 4px;
+	     	border-radius:  10%;
+	     	background: #eee;
+	     	opacity: 0.5;
+	     }
+	     .contain .div-button .title {
+	     	font-size: 16px;
+	     	padding-top: 6px;
+	     	margin: 0 80px;
+	     }
+	     .contain .div-button .content {
+	     	margin:  20px 80px;
+	     }
+	     .content .input-figure {
+	     	width:  160px;
+	     	border-radius:  10%;
+	     }
+	     .contain .div-button .button {
+	     	margin-left:  120px;
+	     }
+	</style>
+</head>
+<body>
+	<div class="contain">
+		<div class="div-top">
+			<div id="result">产生的验证码为: </div>
+		</div>		
+		<div  class="div-button">
+			<div class="title">请输入要产生的验证码的位数</div>
+			<div class="content">
+				<input type="text" class="input-figure" id="digit" value="" />
+				<span class="tip">(1-15)</span>
+			</div>
+			<div class="button">
+				<input name="Submit" type="button" class="input" value="生成" onclick="deal()" />
+				<input name="Submit" type="button" class="input-break" value="刷新" onclick="breakFlash()" />
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+	         function checkCode(digit) {
+	         	//自动生成验证码
+	         	var result = "";
+	         	for(var i=0; i<digit; i++) {
+	         		/*result += (parselnt(Math.random()*10)).toString();*/
+	         		result += Math.floor(Math.random()*10);
+	         	}
+	         	return result;
+	         }
+	         function deal(){
+	         	var result = document.getElementById("result");
+	         	var digit = document.getElementById("digit").value;
+	         	console.log(digit instanceof);
+	         	//console.log(result);
+	         	if(digit.constructor == String){
+	         		result.innerHTML = "产生的验证码为:" + checkCode(digit);
+	         	}else {
+	         		result.innerHTML = "亲，请输入数字哦！";
+	         	}
+	         }
+	         function breakFlash(){
+	         	location.reload() ;
+	         }
+	</script>
+</body>
+</html>
