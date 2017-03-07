@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>javascript对象</title>
+</head>
+<body>
+	<!-- Object对象的属性 -->	
+  <script type="text/javascript">
+      document.write("<h3>(1.prototype属性)"+"</h3></br>");
+        function array_max(){
+	  var max = this[0];
+	  for(var i=1; i<this.length; i++){
+	  	if(max<this[i]){
+	  		max=this[i];
+	  	}
+	  }
+	  return max;
+          }
+          function array_min(){
+          	var min = this[0];
+          	for (var i = 1; i<this.length; i++) {
+          		if(min > this[i]){
+          			min = this[i];
+          		}
+          	}
+          	return min;
+          }
+          Array.prototype.min = array_min;
+          Array.prototype.max = array_max;
+          var x = new Array(1,2,3,4,5,6,7);
+          console.log(x);
+          document.write("数组中最小的数:" + x.min()+"</br>");
+          var y = document.write("数组中最大数为:"+x.max()+"</br>");
+          document.write("总结:prototype属性可以提供对象类的一组基本功能，对象的新实例“继承”赋予该对象原型的操作"+"</h4></br>");
+
+          /*总结:prototype属性可以提供对象类的一组基本功能，对象的新实例“继承”赋予该对象原型的操作*/
+
+           document.write("<h3>(2.constructor属性)"+"</h3></br>");
+           var x = new String("你好呀");
+           console.log(x);
+           document.write(x.constructor == String);
+           document.write("</br>");
+           function Myfunc(){
+           	   return 1;
+           }
+           y =new Myfunc;
+           console.log(y);
+           document.write(y.constructor == Myfunc);
+           document.write("</br>");
+           function employee(name,job,born){
+		this.name=name;
+		this.job=job;
+		this.born=born;
+           }
+          var bill=new employee("Bill Gates","Engineer",1985);
+         document.write(bill.constructor);
+         document.write("</br>");
+         document.write("总结:constructor属性是所有具有prototype的对象的成员，它们包括global和math对象以外的所有js固定对象。constructor属性保存了对构造特定对象实例的函数的引用"+"</h4></br>");
+   </script>
+	
+</body>
+</html>
