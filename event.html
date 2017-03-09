@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>跟随鼠标而移动的文字</title>
+	<style type="text/css">
+		.move_out {
+			position: relative;
+			font-family: "微软";
+			font-size: 16px;
+			color: #666;
+		}
+           </style>
+</head>
+<body>
+             <script type="text/javascript">
+	             var move_out = false;
+	             var target;
+	     
+		function mouse_down(e) {
+		    e = e || window.event;
+		    var t = e.target || e.srcElement;
+		    if(t.className === "move_out") {
+		        target = t;
+		        target.style.position = "absolute";
+		        move_out = true;
+		    }
+		}
+		     
+		function mouse_move(e) {
+		    e = e || window.event;
+		    if(move_out) {
+		        target.style.left = (e.pageX || e.clientX) + "px";
+		        target.style.top = (e.pageY || e.clientY) + "px";
+		    }
+		}
+		     
+		document.onmousedown = mouse_down;
+		     
+		document.onmousemove = mouse_move;
+		  /*  var move_out = false;
+		    var x,y,z;
+		    function move() {
+		    	if(event.button == move_out) {
+		    		z.style.pixelLeft = temporarily1 + event.clientX - x;
+		    		z.style.pixelTop = temporarily2 + event.clientY - y;
+		    		return false;
+		    	}
+		    }
+		    function down() {
+		    	if(event.srcElement.className == "move_out") {
+		    		move_out = true;
+		    		z = event.srcElement;
+		    		temporarily1 = z.style.pixelLeft;
+		    		temporarily2 = z.style.pixelTop;
+		    		x = event.clientX;
+		    		y = event.clientY;
+		    		console.log(x);
+		    		console.log(1);
+		    		document.onmousemove = move;
+		    	}else {
+		    		move_out = false;
+		    	}
+		    }
+		    document.onmousedown = down;*/
+	  </script>
+	<font class="move_out">哎呀哎呀，我被鼠标黏住了0.o~~</font>
+</body>
+</html>
