@@ -1,0 +1,125 @@
+<HTML>
+ 
+    <HEAD>
+        <TITLE>录制鼠标轨迹</TITLE>
+        <meta charset="UTF-8" />
+         
+    </HEAD>
+ 
+    <BODY onmousemove=follow()>
+        <div id="arrow" style="position:absolute; width:12px; height:21px; z-index:1;visibility:hidden">
+            <img src="http://www.codefans.net/jscss/demoimg/201302/cursor.gif">
+        </div>
+        <div id="mousefollow" style="position:absolute; width:12px; height:21px; z-index:1;visibility:hidden">.</div>
+        <input type="text" value=100 id="maxnum" name="maxnum" size="4" maxlength="4">
+        <input type=button onclick=startthis() value=录制>
+        <input type=button onclick=stopthis() value=停止>
+        <input type=button onclick="speed=50;playthis()" value=播放>
+        <input type=button onclick="speed=2;playthis()" value=快放>
+        <input type=button onclick="speed=150;playthis()" value=慢放>
+        <input type=button onclick="speed=50;rewindthis()" value=倒放>
+        <input type="button" id="textfield" name="textfield" style="width:100px" value="无时间限制">
+ 
+<script language="JavaScript">
+             <!--
+             //var mousefollow=document.getElementById("mousefollow");
+             //var maxnum=document.getElementById("maxnum");
+             //var arrow=document.getElementById("arrow");
+             //alert(arrow);
+            var mousex = new Array();
+            var mousey = new Array();
+            var i;
+            var j = 0;
+            var k;
+            var recordcount = 0;
+            var repeat;
+            var repeat2;
+            var repeat3;
+            var speed = 50;
+            var textfield=document.getElementById("textfield");
+ 
+            function startthis() {
+                recordcount = 1;
+                i = 0;
+                mousex = new Array();
+                mousey = new Array();
+                recordthis();
+            }
+ 
+            function recordthis() {
+                var e = e || window.event;
+                if (maxnum.value == '' || isNaN(maxnum.value) == true || maxnum.value < 0) {
+                    if (recordcount == 1) {
+                        mousex[i] = mousefollow.offsetLeft;
+                        document.write(mousex[i]);
+                        mousey[i] = mousefollow.offsetTop;
+                        i++;
+                        k = i;
+                        //alert(k);
+                        textfield.value = '无时间限制';
+                    }
+                } else {
+                    if (recordcount == 1) {
+                        if (i < maxnum.value) {
+                            mousex[i] = mousefollow.offsetLeft;
+                            mousey[i] = mousefollow.offsetTop;
+                            i++;
+                            k = i;
+                            textfield.value = '剩余' + (maxnum.value - i) + '/50秒';
+                        } else {
+                            recordcount = 0;
+                            textfield.value = '时间到';
+                        }
+                    }
+                }
+                repeat = setTimeout("recordthis()", 20);
+            }
+ 
+            function stopthis() {
+                clearTimeout("repeat");
+                recordcount = 0;
+            }
+ 
+            function playthis() {
+                clearTimeout("repeat");
+                clearTimeout("repeat3");
+                recordcount = 0;
+                if (j < i - 1) {
+                    arrow.style.pixelLeft = mousex[j];
+                    arrow.style.pixelTop = mousey[j];
+                    arrow.style.visibility = 'visible';
+                    j++;
+                    repeat2 = setTimeout("playthis()", speed);
+                } else {
+                    clearTimeout("repeat2");
+                    arrow.style.visibility = 'hidden';
+                    j = 0;
+                }
+            }
+ 
+            function rewindthis() {
+                clearTimeout("repeat");
+                clearTimeout("repeat2");
+                recordcount = 0;
+                if (k > 0) {
+                    arrow.style.pixelLeft = mousex[k - 1];
+                    arrow.style.pixelTop = mousey[k - 1];
+                    arrow.style.visibility = 'visible';
+                    k--;
+                    repeat3 = setTimeout("rewindthis()", speed);
+                } else {
+                    clearTimeout("repeat3");
+                    arrow.style.visibility = 'hidden';
+                    k = i;
+                }
+            }
+ 
+            function follow() {
+                    var e = e || window.event;
+                    mousefollow.style.pixelLeft = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+                    mousefollow.style.pixelTop = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+                }
+                // -->
+        </script>
+    </BODY>
+</HTML>
