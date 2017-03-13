@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>关于js的四种调用模式</title>
+</head>
+<body>
+       <script type="text/javascript">
+              var add = function(a,b){
+                    var sum = a+b;
+                    return sum+this;
+              }
+              //1:方法调用模式：当一个函数被保存为对象的一个属性时，成为方法。当一个方法被调用时，this被绑定该对象
+              var myObject = {
+              	value:  0,
+              	increment: function(inc) {
+              		this.value += typeof inc === 'number' ? inc : 1;
+              	}
+              };
+              myObject.increment();
+              document.writeln(myObject.value+"</br>");
+              myObject.increment(6);
+              document.writeln(myObject.value+"</br>");
+              //2:函数调用模式：  当一个函数并非对象属性时，那么它就当一个函数被调用，this被绑定到全局对象。
+              myObject.double = function() {
+              	var that = this;
+              	var helper = function() {
+              		that.value += that.value;
+              	}
+              	helper();
+              };
+              myObject.double();
+              document.writeln(myObject.value+"</br>");
+              //3:构造器调用模式: js是一门基于原型继承的语言，因偏离当今编程的主流风格-基于类的语言。于是提供一套和基于类语言类似的对象构建语法。如果在一个函数面前带上new来调用，那么其背地里将会创建一个连接该函数的prototype成员的新对象，this绑定到该对象上。(不推荐)
+              var Quo = function  (string) {
+              	this.value = string;
+              } ;
+              Quo.prototype.get_value = function() {
+              	return this.value;
+              };
+              var MyQuo = new Quo("云流烟");
+              document.writeln(MyQuo.get_value()+"</br>");
+              //4: Apply调用模式: apply方法让我们构建一个参数数组传递给调用函数，允许选择this的值。接受两个参数，第一个绑定给this的值，第二个是参数数组。
+              var array = [6,4];
+              var count = add.apply(2,array);
+              document.writeln(count+"</br>");
+       </script>	
+</body>
+</html>
