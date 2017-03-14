@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>关于JavaScript的参数与递归</title>
+</head>
+<body onload="">
+	<script type="text/javascript">
+	//使得背景按照时间变化颜色
+		var i = 0;
+		var arr = [];
+		arr[0] = "purple";
+		arr[1] = "yellow";
+		arr[2] = "red";
+		arr[3] = "blue";
+		 function xunhuan(){
+			document.body.style.backgroundColor = arr[i];
+			if(i == 3) {
+				i=0;
+			}else{
+				i += 1;
+			}
+		};
+		setInterval("xunhuan()",2000);
+	   //当函数被调用时，会得到一个免费配送的参数--arguments伪数组.此参数可访问被调用时传递给它的参数列表，包裹多余参数，js里面缺少的参数会用null代替，多余的会被忽略。
+	   var sum = function(){
+	   	var count = 0;
+	   	for(var i =0; i<arguments.length; i++){
+	   		count += arguments[i];
+	   	}
+	   	return count;
+	   } 
+	   document.writeln(sum(1,2,4,5,7));
+	   //递归函数就是直接或间接地调用自身的一种函数
+	   var fact = function fact(i,a) {
+	   	a = a || 1;
+	   	if(i<2) {
+	   		return a;
+	   	}
+	   	return fact(i-1,a*i);
+	   }
+	   document.writeln(fact(5));
+	</script>
+</body>
+</html>
