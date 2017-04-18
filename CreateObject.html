@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>创建对象的相关函数</title>
+</head>
+<body>
+	<script type="text/javascript">
+	/*new一个对象只是会继承原对象的prototype里面的东西，为了同时拥有私有属性和共有属性，我们可以使用构造函数与原型组合模式，私有变量直接在内部声明，可继承的属性放在prototype里面让其他对象继承,下面三个函数defineProperty与其复合函数都是用来定义对象属性的，hasOwnProperty是判断其属性是继承来的还是本身的，继承为false。*/
+                   var obj = function(){};
+                   Object.defineProperties(obj,{
+                   	_year: {
+                   		value: 2017
+                   	},
+                   	_month: {
+                   		value: 04
+                   	},
+                   	_day: {
+                   		value: 18
+                   	}
+                   });
+                   document.write(obj._day);
+                   Object.defineProperty(obj,"date",{
+                   	get: function(){
+                   		return this._day;
+                   	},
+                   	set: function(newVlaue){
+                   		var days;
+                   		if(newVlaue==this._day){
+                   			alert("就是今日");
+                   		}else if(newVlaue>this._day){
+                   			days = newVlaue-this._day;
+                   			alert("还差"+days+"天");
+                   		}else {
+                   			days = this._day-newVlaue;
+                   			alert("已过"+days+"天");
+                   		}
+                   	}
+                   });
+                   obj.date = 20;
+                   console.dir(obj);
+                   var obj1 = new obj();
+                   function Person(){};
+                   Person.prototype.name = "云流烟";
+                   console.dir(Person);
+                   var Person1 = new Person();
+                   document.write(Person1.hasOwnProperty("name"));
+                   Person1.name = "蝉嘶雪";
+                   document.write(Person1.hasOwnProperty("name"));
+	</script>
+</body>
+</html>
