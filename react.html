@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>react事件监听</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+
+</head>
+<body>
+	<div id="container"><div>
+	<script type="text/jsx">
+                    var TestClickComponent = React.createClass({
+                        getInitialState: function(){
+                             return {
+                                  fontSize: "18px",
+                                  marginLeft: "20px",
+                                  color: "red",
+                                  display: "inline"
+                             }
+                        },
+                         handleClick: function(e){
+                            var tipE = React.findDOMNode(this.refs.tips);
+                            console.log(tipE);
+                             tipE.style.display=="none"?tipE.style.display="inline":tipE.style.display="none";
+                            e.stopPropagation();
+                            e.preventDefault();
+                         },
+                    	render: function(){
+                    		return(
+                                             <div> 
+                                                     <button onClick={this.handleClick}>显示|隐藏</button><span ref="tips" style={this.state}>点击测试</span>
+                                             </div>
+                    		);
+                    	}
+                    });
+                    var TestIpuntConponent = React.createClass({
+                    	getInitialState: function(){
+                    		return {
+                    			inputContent: ''
+                    		}
+                    	},
+                         changeHandle: function(e){
+                                      this.setState({
+                                           inputContent: e.target.value
+                                      });
+                                     e.stopPropagation();
+                                     e.preventDefault();
+                         },
+                    	render: function(){
+                    		return(
+                    			<div>
+                                                       <input type="text" onChange={this.changeHandle}/><span>{this.state.inputContent}</span>
+                    			</div>
+                    		);
+                    	}
+                    });
+                    React.render(<div>
+                           <TestClickComponent/>
+                           <br/><br/>
+                           <TestIpuntConponent/>
+                    	</div>,document.getElementById('container'));
+	</script>
+</body>
+</html>
