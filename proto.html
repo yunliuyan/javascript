@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+     <title>继承</title>
+     <meta charset="gb2312" />
+  </head>
+  <body>
+      <script type="text/javascript">
+          //原型链,实例new对象时会把对象的属性先放在实例属性里面,
+          //不过它之前定义的属性全部覆盖。随后对象里面的prototype里面的东西
+          //会被实例的constructor指针所指向，全部继承在__proto__里面。
+          //缺点：引用类型值的原型会被所有实例共享。
+          var superType = function(){
+             this.name="云流烟";
+             this.age = function(){
+               alert("19");
+             }
+          }
+          superType.prototype.sayName = function(){
+             alert(this.name);
+          }
+          var subType = function(){
+            this.name="蝉嘶雪";
+            this.like = "vae";
+          }
+          subType = new superType();
+          console.dir(superType);
+          console.dir(subType);
+          console.log(subType instanceof superType);
+          subType.sayName();
+          subType.age();
+          //借用构造函数，使用call(this,"")/apply把原型的属性继承过来
+          //缺点：1：方法都在构造函数中定义，不能函数复用。
+          //2：原型中定义的方法，子类型中不可见
+          var sType = function(){
+             superType.apply(this);
+             this.like="vae";
+          }
+          console.dir(sType);
+          var yun = new sType();
+          //组合继承，结合原型链和构造函数的优点，构造函数继承属性，原型链继承方法
+          //缺点，原型被引用两次。
+          function Person(name){
+            this.name = name;
+            this.colors = ['bule','red'];
+          }
+          Person.prototype.sayName = function(){
+             alert(this.name);
+          }
+          function Person1(name,age){
+             Person.call(this.name);
+             this.age = age;
+          }
+          Person1.prototype = new Person();
+          Person1.prototype.constructor = Person1;
+          Person1.prototype.sayAge = function(){
+            alert(this.age);
+          }
+          var person2 = new person1("1",56);
+          person2.colors.push("green");
+          var person3 = new person1("2",66);
+          console.log(person3.colors);
+          //原型式继承，借助原型基于已有的对象创建新对象。
+          //缺点：与原型链一样
+          function object(o){
+            function F(){}
+            F.protype = o;
+            return new F();
+          }
+          var a={
+            this.name: "云",
+            this.friends: ["1","2","3"]
+          }
+          var b = object(a);
+          //寄生式继承，通过调用函数创建一个对象，以某种形式增强这个对象，再返回这个对象
+          //缺点:与构造函数相类似；
+          function creatAnother(o){
+            var clone=object(o);
+            clone.sayHi = function(){
+              alert("hi");
+            };
+            return clone;
+          }
+          var c = creatAnother(a);
+          c.sayhi();
+          //寄生组合模式
+          function inheritPrototype(subType,superType){
+            var prototype = object(superType.prototype);
+            prototype.constructor = subType;
+            subType.prototype = prototype;
+          }
+          function c(name){
+            this.name = name;
+            this.colors = ['red','blue'];	
+          }
+          c.prototype.satName = function(){
+          	 alert(this.name);
+         	}
+          function d(name,age){
+            c.call(this,name);
+            this.age = age;	
+          } 
+          inheritPrototype(d,c);
+          d.prototype.sayAge = function(){
+        	  laert(this.age);
+        	}
+      </script>
+  </body>
+</html>
