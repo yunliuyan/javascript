@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+                 function decimalToBinary (decimalStr) {
+	      var arr=[];
+	      var binaryStr;
+	      var i=0;
+                  while(decimalStr){
+                  	if(decimalStr/2>=1){
+                  		arr[i] = decimalStr%2;
+                  		decimalStr=parseInt(decimalStr/2);
+                  		i++;
+                  	}else{
+                  		arr[i] = 1;
+                  		break;
+                  	}
+                  }
+                  arr.reverse();
+	      binaryStr = arr.join(" ");
+	   return binaryStr;
+	}
+	  document.write(decimalToBinary(8));
+	</script>
+	
+</body>
+</html>
