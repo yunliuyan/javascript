@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>节点层次与添加监听事件</title>
+</head>
+<body>
+	<div class="parent-node" id="content">
+		<h1 class="firstChild-node">11</h1>
+		<div class="secondChild-node"></div>
+		<div class="lastChild-node">
+			<ul>
+				<li>1</li>
+				<li>2</li>
+				<li>3</li>
+			</ul>
+		</div>
+	</div>
+	<button id="butt">添删节点</button>
+	<script type="text/javascript">
+	      var but = document.getElementById('butt');
+	      var content = document.getElementById("content");
+	      var lastNodes = function(data){
+	      	var dd = data.lastChild;
+	      	while(dd.nodeType != 1){
+	      		data.removeChild(dd);
+	      		dd = data.lastChild;
+	      	}
+	      	return dd;
+	      }
+	      var temp = false;
+	      but.addEventListener("click",function(){
+	      	if(!temp){
+	                  	var newNode = document.createElement("div");
+	                  	newNode.innerHTML = "这是新节点";
+	                  	content.appendChild(newNode);
+	                  	temp = true;
+	      	}else{
+	      		var x = content.removeChild(lastNodes(content));
+	      		x=null;
+	      		temp = false;
+	      	}	
+	      },false);
+	</script>
+</body>
+</html>
