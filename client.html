@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>坐标位置</title>
+</head>
+<body>
+	<button type="text" id="myDiv">我在这</button>
+	<button type="text" style="position: relative;top: 500px;margin-bottom: 200px"  id="myDiv1">我在这</button>
+	<script type="text/javascript">
+	       var EventUtil = {
+	       	addHandler: function(element,type,handler) {
+	       		if(element.addEventListener){
+	       			element.addEventListener(type,handler,false);
+	       		}else if(element.attachEvent){
+	       			element.attachEvent("on"+type,handler);
+	       		}else{
+	       			element["on"+type] = handler;
+	       		}
+	       	},
+	       	removeHandler: function(element,type,handler){
+	       		if(element.removeEventListener){
+	       			element.removeEventListener(type,handler,false);
+	       		}else if(element.detachEvent){
+	       			element.detachEvent("on"+type,handler);
+	       		}else{
+	       			element["on"+type] = null;
+	       		}
+	       	},
+	       	getEvent: function(event){
+	       		return event ? event : window.event;
+	       	},
+	       	getTarget: function(event){
+	       		return event.target || event.srcElement; 
+	       	},
+	       	preventDefault: function(event){
+	       		if(event.preventDefault){
+	       			event.preventDefault();
+	       		}else{
+	       			event.returnValue = false;
+	       		}
+	       	},
+	       	stopPropagation: function(event){
+	       		if(event.stopPropagation){
+	       			event.stopPropagation();
+	       		}else{
+	       			event.cancelBubble = true;
+	       		}
+	       	}
+	       }
+                   var div = document.getElementById("myDiv");
+                   var div1 = document.getElementById("myDiv1");
+                   EventUtil.addHandler(div,"click",function(event){
+                   	event=EventUtil.getEvent(event);
+                   	alert("Client coordinates:"+event.clientX+","+event.clientY+"\n"+"page coordinates:"+event.pageX+","+event.pageY+"\n"+"Sreen coordinates:"+event.screenX+","+event.screenY);
+                        div.innerHTML = "client相对于客户区坐标，page相对于页面窗口，screen相对于电脑屏幕";
+                   });
+                     EventUtil.addHandler(div1,"click",function(event){
+                   	event=EventUtil.getEvent(event);
+                   	alert("Client coordinates:"+event.clientX+","+event.clientY+"\n"+"page coordinates:"+event.pageX+","+event.pageY+"\n"+"Sreen coordinates:"+event.screenX+","+event.screenY);
+                   	div1.innerHTML = "在页面没有滚动的情况下，pageX和pageY与clientX和clientY是相等的";
+                   });
+	</script>
+</body>
+</html>
