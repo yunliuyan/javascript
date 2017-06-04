@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>事件委托，撤销，模拟</title>
+</head>
+<body>
+	<div>
+		<ul id="myList">
+			<li id="goSomeWhere">github</li>
+			<li id="doSomeThing">someThing</li>
+			<li id="sayHi">say Hi</li>
+		</ul>
+	</div>
+	<div id="myDiv">
+		<input id="btn" type="button" value="点我就消失"/>
+		<input id="content" type="text" value="你永远看不到我"/> 
+	</div>
+	<script type="text/javascript">
+                       var EventUtil = {
+	       	addHandler: function(element,type,handler) {
+	       		if(element.addEventListener){
+	       			element.addEventListener(type,handler,false);
+	       		}else if(element.attachEvent){
+	       			element.attachEvent("on"+type,handler);
+	       		}else{
+	       			element["on"+type] = handler;
+	       		}
+	       	},
+	       	removeHandler: function(element,type,handler){
+	       		if(element.removeEventListener){
+	       			element.removeEventListener(type,handler,false);
+	       		}else if(element.detachEvent){
+	       			element.detachEvent("on"+type,handler);
+	       		}else{
+	       			element["on"+type] = null;
+	       		}
+	       	},
+	       	getEvent: function(event){
+	       		return event ? event : window.event;
+	       	},
+	       	getTarget: function(event){
+	       		return event.target || event.srcElement; 
+	       	},
+	       	preventDefault: function(event){
+	       		if(event.preventDefault){
+	       			event.preventDefault();
+	       		}else{
+	       			event.returnValue = false;
+	       		}
+	       	},
+	       	stopPropagation: function(event){
+	       		if(event.stopPropagation){
+	       			event.stopPropagation();
+	       		}else{
+	       			event.cancelBubble = true;
+	       		}
+	       	}
+	       }
+	       var list = document.getElementById("myList");
+	       EventUtil.addHandler(list,"click",function(e){
+	       	 e = EventUtil.getEvent(e);
+	       	 var target = EventUtil.getTarget(e);
+	       	 switch(target.id){
+	       	 	case 'goSomeWhere':
+	       	 	    location.href = "http://www.github.com/yunliuyan";
+	       	 	    break;
+	       	 	 case 'doSomeThing':
+	       	 	    document.title = "I change the document title";
+	       	 	    break;
+	       	 	  case 'sayHi':
+                                          alert("Hello World");
+                                       break;   
+	       	 }
+	       })
+	       var myDiv = document.getElementById("myDiv");
+	       var btn = document.getElementById("btn");
+	       EventUtil.addHandler(btn,"click",function(){
+	       	   list.innerHTML = "<h1>撤销事件</h1>";
+	       	   btn.onclick = null;
+	       	   myDiv.innerHTML = "";
+	       });
+
+	       var content = document.getElementById("content");
+	       EventUtil.addHandler(content,"click",function(){
+	       	this.value = "这是模拟鼠标事件的内容";
+	       })
+	        var ev = new MouseEvent('click', {
+		         cancelable: true,
+		         bubble: true,
+		         view: document.defaultView
+    	       });
+     	      content.dispatchEvent(ev);
+	</script>
+</body>
+</html>
