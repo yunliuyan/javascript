@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="UTF-8">
+      <title>this以及改变this的三大函数</title>
+</head>
+<body>
+      <script type="text/javascript">  
+       //call与aplly的异同：  
+    //1,第一个参数this都一样,指当前对象  
+    //2,第二个参数不一样：call的是一个个的参数列表；apply的是一个数组（arguments也可以）
+    //绑定没有传递性，比如上面的嵌套的函数，a绑定到 o 对象，那么就影响了a函数，  
+          var obj = { 
+                a: function() {
+                    //this==obj;
+                    b = function(){
+                        //this==window
+                    }
+                }
+          } 
+
+      var Person = function(name,age,like){
+            this.name = name;
+            this.age = age;
+            this.like = like;
+            this.say = function say(){
+                  alert("我是:" + this.name);
+            }
+      }
+      var student = function(name,age,num){
+            this.num = num;
+            Person.call(this,name,age);
+      }
+      var father = function(name,like){
+            Person.apply(this,[name,like]);
+      }
+      var people = new Person("云流烟",21,"山水");
+      console.dir(people);
+      var stu = new student("蝉嘶雪",18,1408095052);
+      console.dir(stu);
+      var fa = new father("墨冥言","诗词");
+      console.dir(fa);
+      var a = function(){
+                  name = 'a'
+      };
+      var b = function(){
+            console.log(this.name)
+      };
+     var c = b.bind(a);
+     c();
+</script>  
+</body>
+</html>
