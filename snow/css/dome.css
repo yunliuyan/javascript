@@ -1,0 +1,25 @@
+* { margin:0; padding:0; } 
+html, body { width:100%; height:100%; overflow: hidden; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif} 
+
+
+.wrap{ width: 100%; height: 600px;  position: absolute; top: 50%; margin: -300px 0 0 0;   z-index: 999;         }
+.photo{width:260px;height:320px;position:absolute;left:50%;top:50%;margin:-160px 0 0 -160px; perspective:800px;
+    -webkit-transition:all .3s ,left 1s 0.3s,top 1s 0.3s;}
+.photo .photo_wrap{width:100%;height:100%;position:absolute;left:0;right:0;-webkit-transform-style:preserve-3d;
+-webkit-transform-origin:0% 50%;-webkit-transition:all .6s ;}
+.photo .photo_wrap .side{width:100%;height:100%;background:#eee;position:absolute;left:0;top:0;padding:20px;
+    box-sizing:border-box;-webkit-backface-visibility:hidden;}
+.photo .photo_wrap .side_front{}
+.photo .photo_wrap .side_front .image{width:100%;height:250px;overflow:hidden;line-height:250px;}
+.photo .photo_wrap .side_front .image img{width:100%;vertical-align: middle;}
+.photo .photo_wrap .side_front .capation{width:100%;text-align:center;line-height:50px;font-size:16px;}
+.photo .photo_wrap .side_back{position:absolute;top:0;left:0;-webkit-transform:rotateY(-180deg);font-size:12px;}
+.photo_front .photo_wrap{-webkit-transform:rotateY(0deg);}
+.photo_back .photo_wrap{-webkit-transform:translate(260px,0) rotateY(-180deg);}
+/*导航条*/
+.nav{width:80%;height:30px;position:absolute;left:10%;bottom:30px;text-align:center;}
+.nav .i{ width: 30px; height: 30px; display: inline-block; border-radius: 50%; background-color: #00807A; -webkit-transform: rotateY(180deg) scale(0.48); cursor: pointer; -webkit-transition: all 1s; }
+.nav .i_current{-webkit-transform:rotateY(0deg) scale(1);}
+.nav .i_back{background:yellow;-webkit-transform:rotateY(180deg) scale(1);}
+
+.photo_center{z-index:999; left:50%;top:50%;margin:-160px 0 0 -130px;}
