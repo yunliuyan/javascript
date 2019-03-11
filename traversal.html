@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js的遍历</title>
+</head>
+<body>
+    <script type="text/javascript">
+        //原始for循环
+        var a=[1,2,3];
+        for (var i=0; i<a.length; i++){
+            document.write(a[i])
+        }
+        //优点: 大家都比较熟悉，容易理解
+        //缺点: 写起来繁琐，需要定义变量
+
+
+        //数组内置方法 Array.prototype.forEach
+        //forEach循环实现
+        Array.prototype.forEachCopy = function(callback){
+            var arr = this;
+            for(var i=0; i<arr.length;i++){
+                callback(arr[i],i,this)
+            }
+        }
+        a.forEachCopy(function(value,key,arr){
+            console.log(value);
+            console.log(key);
+            console.log(arr)
+        })
+        //优点: 写起来方便，不需要定义额外的变量
+        //缺点: 不能return终止循环(因为是回调函数，所以是闭包，有作用域，所以不能中断),性能和效率都劣于for循环
+
+        //数组内置方法 Array.prototype.map
+        Array.prototype.mapCopy = function(callback){
+            var arr = this;
+            var newArr = [];
+            for(var i=0; i<arr.length; i++){
+                newArr.push(callback(arr[i],i,this)) 
+            }
+            return newArr
+        }
+        var b = a.mapCopy(function(value,key,arr){
+            console.log(value);
+            console.log(key);
+            console.log(arr)
+            return value+1
+        })
+        // froEach return是没有任何效果的，但是map可以修改当前循环的值,最终返回一个新的被改变的过的值之后的数组,由于这个
+        //特性，map一般用来处理需要改变某一个数组的值
+
+        //数组内置方法filter
+        Array.prototype.filterCopy = function(callback){
+            var arr = this;
+            var newArr = [];
+            for(var i=0; i<arr.length; ++i){
+                var Bool = callback(arr[i],i,arr)
+                if(Boll){
+                    newArr.push(arr[i])
+                } 
+            }
+            return newArr
+        }
+        var c = a.filterCopy(function(value,key,arr){
+            console.log(value);
+            console.log(key);
+            console.log(arr);
+            if(value>2){
+                return false
+            }
+            return true
+        })
+        //相比较map来说，map是改变数组里面的值，而filter则是过滤数组里面的某些值,根据返回的true or false来判断，fasle则是过滤的数据
+
+
+      /**数组内置方法reduce*/
+      Array.prototype.reduceCopy = function(callback,countInit){
+          var arr = this;
+          for(var i=0; i<arr.length; i++){
+            var counters = callback(countInit, arr[i], i, arr)
+            countInit = counters;
+          }
+          return countInit;
+      }
+      var d = a.reduceCopy(function(count,value,key,arr){
+            console.log(count);   
+            console.log(value);   
+            console.log(key);     
+            console.log(arry)     
+            return count + value;
+      },0)
+      //reduce的不同之处在于累加，和其他内置方法不同，它的第二个参数不是this对象，而是初十累加值,而且会掉的个数也多了一个。
+
+      /*数组内置方法some*/
+      Array.prototype.someCopy = function(callback){
+          var arr = this;
+          var isBool = false;
+          for(var i=0; i<arr.length;i++){
+              var tempValue = callback(arr[i],i,arr);
+              if(tempValue){
+                  isBool = true;
+                  return isBool
+              }
+          }
+          return isBoll;
+      }
+      var BollVal = a.someCopy(function(value,key,arr){
+          console.log(value);
+          console.log(key);
+          console.log(arr);
+          
+          return value === 2;
+      })
+      //true
+      //它的作用有点像filter，但它的目的不是为了筛选数组,而是判断该数组是否有某个数组。其找到符合条件的值就不会再执行下去了，直接返回true。
+
+      /*数组内置方法every*/
+      Array.prototype.everyCopy = function(callback){
+          var arr = this;
+          var isBool = true;
+          for(var i=0; i<arr.length;i++){
+              var tempValue = callback(arr[i],i,arr);
+              if(tempValue){
+                  isBool = false;
+                  return isBool
+              }
+          }
+          return isBoll;
+      }
+      var BollVal = a.everyCopy(function(value,key,arr){
+          console.log(value);
+          console.log(key);
+          console.log(arr);
+          
+          return value === 2;
+      })
+      //every
+      //从例子中就可以看出，every和some一样，只是返回的值不一样，some返回的是true，every返回的是fasle
+
+      /*数组内置方法indexOf*/
+      Array.prototype.indexOfCopy = function(value){
+          var arr = this;
+          var index = -1;
+          for(var i=0; i<arr.length; i++){
+              if(arr[i] === value){
+                  index = i;
+                  return index
+              }
+          }
+          return index
+      }
+      var e = a.indexOfCopy(2); // 1
+      //相对indexOf方法来说，在数组循环过程中会和传入的参数比对，如果比对成功则终止循环，返回成功元素的下标
+
+      /*数组内置方法lastIndexOf*/
+      Array.prototype.lastIndexOfCopy = function(value){
+        var arr = this;
+          var index = -1;
+          for(var i=arr.length; i>0; i--){
+              if(arr[i] === value){
+                  index = i;
+                  return index
+              }
+          }
+          return index
+      }
+      var lastArr = [1,2,3,1];
+      lastArr.lastIndexOfCopy(1); //3
+      //和indexOf功能一样，不过lastIndexOf是逆向查询
+
+
+      /*小结*/
+      //将数组内置方法写完之后，对于数组循环遍历要使用哪种方法更清晰了。
+      /*
+      for: 所有语言公用的写法。一下所有的内置方法都是基于for循环
+      forEach: 并不会改变数组的任何东西，只是会将数组遍历出来，也没有return。个人觉得使用场景,当子数组需要从父数组进行匹配并且不会改变父数组。就用forEach
+      map: 通过遍历会修改数组里面的元素，返回一个新的数组。所以遍历的时候需要return。个人用的最多
+      filter： 过滤器，当callback里面是false的时候，则不会把相对应的元素值添加到返回的新数组中。用来删除数组中的某些元素
+      reduce: 累加器。该遍历适用于元素都是number类型，将里面所有的元素基于某值进行累加。累加的规则可写在callback里面
+      some: 查找数组是否包含某一元素，若有返回true；
+      every： 查找数组是否包含某一元素，若有返回false;
+      indexOf: 查找数组是否包含某一元素，若有返回下标。(该参数不是callback，而是value值),正向查找。
+      lastindexOf:查找数组是否包含某一元素，若有返回下标。(该参数不是callback，而是value值),逆向查找。
+      */
+
+      //es6 for...of
+      //创建一个循环来迭代可迭代的对象，包括数组，字符串，映射，集合
+    </script>
+</body>
+</html>
