@@ -91,7 +91,7 @@
             console.log(arry)     
             return count + value;
       },0)
-      //reduce的不同之处在于累加，和其他内置方法不同，它的第二个参数不是this对象，而是初十累加值,而且会掉的个数也多了一个。
+      //reduce的不同之处在于累加，和其他内置方法不同，它的第二个参数不是this对象，而是基于初值的累加值,而且回调的个数也多了一个。
 
       /*数组内置方法some*/
       Array.prototype.someCopy = function(callback){
