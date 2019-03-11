@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>判断一个变量是否为数组</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        //es5提供Array.isArray方法来判断一个变量是否为数组,是则返回true
+        console.log(Array.isArray([1, 2, 3])) //此处返回true
+
+        //但是在古老的浏览器。比如IE8以下，没有实现Array的isArray的方法，那么就需要换一种方式判断
+        console.log(Object.prototype.toString.call([1, 2, 3]) === '[object Array]')
+        Array.prototype.is_array = function (arr) {
+            if (Object.prototype.toString.call(arr) === '[object Array]') {
+                return true
+            }
+            return false
+        }
+        //综上，可写一个完美兼容浏览器的is_array的方法
+        Array.prototype.is_array = function (arr) {
+            if (!Array.isArray(arr)) {
+                if (Object.prototype.toString.call(arr) === '[object Array]') {
+                    return true
+                }
+                return false
+            }
+            return true
+        }
+    </script>
+</body>
+
+</html>
