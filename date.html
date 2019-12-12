@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>陈静计算日期专用</title>
+    <style type="text/css">
+        .start-time {
+            margin: 20px;
+            text-align: center;
+        }
+        .start-time span {
+
+        }
+        .start-time input{
+            height: 24px;
+        }
+        .start-time button {
+            background: #fff;
+            height: 24px;
+            border-radius: 12px;
+            border: 1px solid #666;
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="start-time">
+       <span>开始日期:</span> <input type='text' id='statInput' />
+    </div>
+    <div class="start-time">
+       <span>结束日期:</span> <input type='text' id='endInput' />
+    </div>
+    <div class="start-time"><button onclick="getDate()">提交计算</button></div>
+    <div class="result-day">陈静同学，请记住，这个时间段的天数是：<div id="days"></div></div>
+    <script type='text/javascript'>
+        function getDate(){
+            var startTime = document.getElementById('statInput').value;
+            var endTime = document.getElementById('endInput').value;
+            var result = document.getElementById('days')
+            var sdate = new Date(startTime); 
+          　var now = new Date(endTime); 
+          　　var days = now.getTime() - sdate.getTime(); 
+          　　var day = parseInt(days / (1000 * 60 * 60 * 24)); 
+          　　result.innerHTML = day
+
+        } 
+    </script>
+</body>
+</html>
